@@ -8,5 +8,5 @@ This method...
 <li>Updates the node's distance, if a new path is shorter than some other path.
 <li>Repeats this for every adj node to the previous adj node.
 <li>If the display_path == True, then the path taken will also be displayed.
-</ol>
+</ol><br>
 In summary, this method finds the shortest path to every node in the graph from the starting point.
