@@ -113,7 +113,7 @@ class weighted_digraph:
     def are_adjacent(self, value1, value2):
         return(self.find(value1).is_adjacent(self.find(value2)))
 
-    def dijkstra(self, start, display_path=False):
+    def dijkstra(self, start):
         '''
             For all the nodes in the graph, set distance
             equal to infinity and previous equal to none
@@ -149,7 +149,7 @@ class weighted_digraph:
         while len(todo) > 0:
             minimum = min(todo, key=lambda node: node.distance)
             todo.remove(minimum)
-            if display_path == False or result == []:
+            if track_prev == False or result == []:
                 result.append([minimum.distance, minimum.value])
             else:
                 result.append([minimum.distance])
@@ -164,7 +164,7 @@ class weighted_digraph:
                     edge.to_node.previous = minimum
                     todo.append(edge.to_node)
 
-        if display_path == False:
+        if track_prev == False:
             result.sort()
         else:
             result = sorted(result, key=len)
@@ -257,7 +257,7 @@ class test_weighted_digraph(unittest.TestCase):
         g.add_edges([(1,2,2), (1,3,1), (2,3,1), (2,4,1), \
             (2,5,2), (3,5,5), (4,5,3), (4,6,6), (5,6,1)])
         track_prev = True
-        self.assertEqual(g.dijkstra(1, True), [[0, 1], [1, 3, 1], [2, 2, 1], \
+        self.assertEqual(g.dijkstra(1), [[0, 1], [1, 3, 1], [2, 2, 1], \
             [3, 4, 2, 1], [4, 5, 2, 1], [5, 6, 5, 2, 1]])
 
 ''' A-level work '''
@@ -266,7 +266,7 @@ if '__main__' == __name__:
     for line in stdin:
         a = line.strip().split(" ")
         g.add_edge(a[0], a[1], int(a[2]))
-    result = g.dijkstra("Denver", True)
+    result = g.dijkstra("Denver")
     for city in result:
         print(city[1], "is", city[0], 'miles from Denver')
         if track_prev:
